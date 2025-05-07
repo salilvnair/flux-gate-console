@@ -1,0 +1,56 @@
+
+<div>
+    <div style="height: 75vh; overflow: auto;">
+      <table mat-table [dataSource]="urlConfig">
+        <tbody>
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef style="padding-left: 80px;"> Id </th>
+            <td mat-cell *matCellDef="let row">
+              <div style="display: flex;">
+                <div style="margin-top: 18px;" *ngIf="!serverConfigViewActivated">
+                  <mat-checkbox [(ngModel)]="row.edit" [disabled]="serverConfigViewActivated"></mat-checkbox>
+                </div>
+                <mat-form-field style="margin: 10px 0px;  width: 100%;" appearance="outline">
+                  <input  style="font-weight: 500;" matInput [(ngModel)]="row.id" [disabled]="!row.edit">
+                  <!-- <mat-hint>Hint</mat-hint> -->
+                </mat-form-field>
+              </div>
+              
+            </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="subcontext">
+            <th mat-header-cell *matHeaderCellDef style="padding-left: 30px;"> Subcontext </th>
+            <td mat-cell *matCellDef="let row" style="text-align: center;width: 80%;">
+              <mat-form-field style="margin: 10px 0px;  width: 100%;" appearance="outline" 
+                [matTooltip]="row.subcontext"
+                matTooltipPosition="above"
+                matTooltipClass="subcontext-tooltip">
+                <input  style="font-weight: 500;" matInput [(ngModel)]="row.subcontext" [disabled]="!row.edit">
+                <!-- <mat-hint>Hint</mat-hint> -->
+              </mat-form-field>
+            </td>
+          </ng-container>
+            
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef style="text-align: center;"></th>
+            <td mat-cell *matCellDef="let row" style="text-align: center;">
+              <div style="margin-bottom: 18px;"  *ngIf="!serverConfigViewActivated">
+                <button mat-icon-button color="warn" (click)="deleteRow(row)" matTooltip="Delete"
+                matTooltipPosition="above">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+        
+          <tr mat-header-row *matHeaderRowDef="['id', 'subcontext', 'actions']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['id', 'subcontext', 'actions'];"></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="display: flex; justify-content: flex-end; margin: 30px;"  *ngIf="!serverConfigViewActivated">
+      <button mat-raised-button color="accent" (click)="addRow()">Add</button>
+      <button mat-raised-button style="margin-left: 10px;" color="primary" (click)="save()">Save</button>
+    </div>
+  </div>

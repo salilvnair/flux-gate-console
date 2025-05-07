@@ -1,0 +1,56 @@
+# Compiled output
+dist/
+build/
+
+# Dependencies
+node_modules/
+
+# Angular build configuration
+.angular/
+
+# Temporary files and logs
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Coverage directory used by testing tools
+coverage/
+
+# Environment files
+src/environments/environment*.ts
+
+# Angular CLI config
+.angular-cli.json
+
+# Other config
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignore local files
+*.local
+
+# Ignore generated lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Ignore NPM global cache
+.npm/
+
+# Miscellaneous
+test-output/
+out-tsc/
+.sass-cache/

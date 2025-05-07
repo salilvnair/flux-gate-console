@@ -1,0 +1,33 @@
+<div>
+    <div style="height: 75vh; overflow: auto;">
+      <table mat-table [dataSource]="defaultConfig | keyvalue">
+        <tbody>
+          <ng-container matColumnDef="old_url">
+            <th mat-header-cell *matHeaderCellDef style="padding-left: 30px;width: 55%;"></th>
+            <td mat-cell *matCellDef="let row" style="text-align: center;width: 55%;">
+                <div style="display: flex; width: 70%;" 
+                    #tooltip="matTooltip"
+                    [matTooltip]="row.value"
+                    matTooltipClass="subcontext-tooltip"
+                    matTooltipPosition="above" >
+                    <div style="margin-top: 16px;" *ngIf="!serverConfigViewActivated">
+                        <mat-checkbox [(ngModel)]="row.edit"></mat-checkbox>
+                    </div>
+                    <mat-form-field style="margin: 10px 0px;  width: 100%;" 
+                        appearance="outline">
+                            <mat-label> Old URL</mat-label>
+                            <input  style="font-weight: 500;" matInput placeholder="Old URL" [(ngModel)]="row.value" [disabled]="!row.edit">
+                    </mat-form-field>             
+              </div>
+            </td>
+          </ng-container>
+    
+          <tr mat-header-row *matHeaderRowDef="['old_url']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['old_url'];"></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="display: flex; justify-content: flex-end; margin: 30px;" *ngIf="!serverConfigViewActivated">
+      <button mat-raised-button style="margin-left: 10px;" color="primary" (click)="save()">Save</button>
+    </div>
+  </div>

@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Delete</h1>
+<div mat-dialog-content class="mat-typography">
+  {{data}}
+</div>
+<mat-dialog-actions align="end">
+  <button mat-raised-button (click)="handleCancel()">Cancel</button>
+  <button mat-raised-button style="margin-left: 20px;margin-right: 5px;" color="warn" (click)="handleYes()"cdkFocusInitial>Yes</button>
+</mat-dialog-actions>
