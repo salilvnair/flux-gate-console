@@ -26,7 +26,8 @@ export interface DataRow extends Editable {
 export interface ApiRow extends Editable {
   old_url: string;
   new_url: string;
-  upstream: boolean;
+  old_url_upstream: boolean;
+  new_url_upstream: boolean;
   active: boolean;
   data: DataRow[];
   resolver_module: string;
@@ -99,10 +100,11 @@ export class ApiConfigComponent implements OnInit {
 
   addApiConfig() {
     this.apiConfig[this.newIds[0]] = {
-      new_url: 'https://new-url/service',
-      old_url: 'https://old-url/service',
+      new_url: '',
+      old_url: '',
       active: true,
-      upstream: false,
+      old_url_upstream: false,
+      new_url_upstream: false,
       data: [
           
       ],

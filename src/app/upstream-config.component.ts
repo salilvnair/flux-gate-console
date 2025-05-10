@@ -72,7 +72,10 @@ export interface UpstreamConfig extends Editable {
         const apiConfig = this.appService.config.apiConfig;
         this.allUpstreams = []
         for(let key in apiConfig) {
-          if(apiConfig[key].upstream) {
+          if(apiConfig[key].old_url_upstream) {
+            this.allUpstreams.push(apiConfig[key].old_url)
+          }
+          if(apiConfig[key].new_url_upstream) {
             this.allUpstreams.push(apiConfig[key].new_url)
           }
         }
