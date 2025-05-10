@@ -8,20 +8,33 @@ import { AppService } from './app.service';
 })
 export class DefaultConfigComponent implements OnInit {
   serverConfigViewActivated = false
-  constructor(
-        private appService: AppService) {}
+  constructor( private appService: AppService) {}
+
+  defaultConfig: { [key: string]: string } = this.appService.config.defaultConfig      
+  newDefaultConfig: { [key: string]: string } = {}  
 
   ngOnInit(): void {
     this.appService.serverConfigViewPublisher().subscribe(activated => {
       this.serverConfigViewActivated = activated
-    })
+    });
+    if(!this.defaultConfig) {
+      this.addDefaultConfig("old_url", "");
+    }
   }
 
-  defaultConfig: { [key: string]: string } = this.appService.config.defaultConfig
+  handleConfigChange(key:string, value:string) {
+    this.newDefaultConfig[key] = value
+  }
 
+  addDefaultConfig(key:string, value:string) {
+    this.defaultConfig[key] = value
+  }
 
   save() {
-    this.appService.saveConfig();
+    if(this.newDefaultConfig && Object.keys(this.newDefaultConfig).length > 0) {
+      this.appService.config.defaultConfig = {... this.newDefaultConfig}
+      this.appService.saveConfig();
+    }
   }
 
 }

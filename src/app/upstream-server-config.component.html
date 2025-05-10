@@ -13,14 +13,14 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="ip">
+    <ng-container matColumnDef="address">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let row">
         <mat-form-field style="margin: 10px 0px;  width: 100%;" appearance="outline"
-          [matTooltip]="row.ip"
+          [matTooltip]="row.address"
           matTooltipPosition="above">
-          <mat-label>Ip</mat-label>
-          <input  style="font-weight: 500;" matInput placeholder="X.X.X.X" [(ngModel)]="row.ip" [disabled]="!row.edit">
+          <mat-label>Address</mat-label>
+          <input  style="font-weight: 500;" matInput placeholder="Address" [(ngModel)]="row.address" [disabled]="!row.edit">
         </mat-form-field>
       </td>
     </ng-container>
@@ -38,8 +38,8 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="['id', 'ip', 'actions']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['id', 'ip', 'actions'];"></tr>
+    <tr mat-header-row *matHeaderRowDef="['id', 'address', 'actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['id', 'address', 'actions'];"></tr>
   </table>
 </div>
 <div style="display: flex; justify-content: space-between; padding: 10px; margin: 10px;">

@@ -13,7 +13,7 @@ export interface ServerConfigData {
 
 export interface ServerConfig  extends Editable {
   id: string;
-  ip: string;
+  address: string;
 }
 
 @Component({
@@ -30,7 +30,7 @@ export interface ServerConfig  extends Editable {
       private dialog: MatDialog,
       private alertService: AlertService
     ) {
-      this.initialData = [...this.dialogData.data.value]
+      this.initialData = this.dialogData.data && this.dialogData.data instanceof Array ? [...this.dialogData.data.value] : []
       this.dialogData.data.subscribe(configs => this.dataSource.data = configs ?? []);
     }
 
@@ -51,7 +51,7 @@ export interface ServerConfig  extends Editable {
 
     addServerConfig() {
       const currentData = this.dialogData.data.value
-      currentData.push({ id: currentData?.length ? (currentData?.length + 1 ) +"": "1", ip: '', edit: true });
+      currentData.push({ id: currentData?.length ? (currentData?.length + 1 ) +"": "1", address: '', edit: true });
       this.dialogData.data.next(currentData);
     }
 

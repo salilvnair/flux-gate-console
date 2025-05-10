@@ -12,22 +12,17 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="mappedKey">
-      <th mat-header-cell *matHeaderCellDef style="text-align: left;width: 80%;padding-left: 30px">MappedKey</th>
+    <ng-container matColumnDef="upstream">
+      <th mat-header-cell *matHeaderCellDef style="text-align: left;width: 80%;padding-left: 30px">Upstream</th>
       <td mat-cell *matCellDef="let row" style="text-align: left;width: 80%;">
-        <!-- <mat-form-field style="margin: 10px 0px;  width: 100%;" appearance="outline"
-            [matTooltip]="row.mappedKey"
-            matTooltipPosition="above">
-            <input  style="font-weight: 500;" matInput placeholder="MappedKey" [(ngModel)]="row.mappedKey" [disabled]="!row.edit">
-        </mat-form-field> -->
-        <mat-form-field style="margin: 10px 0px;  width: 100%;" [matTooltip]="row.mappedKey"
+        <mat-form-field style="margin: 10px 0px;  width: 100%;" [matTooltip]="row.upstream"
           matTooltipPosition="above"  appearance="outline">
           <mat-select 
-            [(ngModel)]="row.mappedKey" 
+            [(ngModel)]="row.upstream" 
             [disabled]="!row.edit"
             >
-            <mat-option *ngFor="let id of allIds" [value]="id">
-              {{ id }}
+            <mat-option *ngFor="let upstream of allUpstreams" [value]="upstream">
+              {{ upstream }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -38,7 +33,9 @@
       <th mat-header-cell *matHeaderCellDef>Servers</th>
       <td mat-cell *matCellDef="let row">
         <div style="margin-bottom: 18px;">
-          <button mat-icon-button color="primary" (click)="openServerConfigDialog(row.servers, row)">
+          <button mat-icon-button color="primary" (click)="openServerConfigDialog(row.servers, row)"
+            matTooltip="Config"
+            matTooltipPosition="above">
             <mat-icon>settings</mat-icon>
           </button>
         </div>
@@ -60,8 +57,8 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="['id', 'mappedKey', 'servers', 'actions']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['id', 'mappedKey', 'servers', 'actions'];"></tr>
+    <tr mat-header-row *matHeaderRowDef="['id', 'upstream', 'servers', 'actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['id', 'upstream', 'servers', 'actions'];"></tr>
   </table>
 </div>
 <div style="display: flex; justify-content: flex-end; padding: 10px; margin: 10px;">

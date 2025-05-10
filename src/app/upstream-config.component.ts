@@ -8,7 +8,7 @@ import { Editable } from './api-config.component';
 
 export interface UpstreamConfig extends Editable {
   id: string;
-  mappedKey: string;
+  upstream: string;
   servers: ServerConfig[]
 }
 
@@ -18,8 +18,8 @@ export interface UpstreamConfig extends Editable {
   })
   export class UpstreamConfigComponent implements OnInit {
     serverConfigViewActivated = false
-    allIds: string [] = []
-    newIds: string [] = []
+    allUpstreams: string [] = []
+    newUpstreams: string [] = []
   
     hasNewEntry = false;
 
@@ -44,7 +44,7 @@ export interface UpstreamConfig extends Editable {
       }
       let configData = {
         id: "",
-        mappedKey: this.newIds[0],
+        upstream: this.newUpstreams[0],
         servers: [],
         edit: true
       }
@@ -68,28 +68,28 @@ export interface UpstreamConfig extends Editable {
 
     determineIfNewEntryInServerConfigIsThere() {
       let upstreamConfig = this.appService.config.upstreamConfig;
-      this.newIds = []
-      let allUpstreamMappedKeys = upstreamConfig.map(urlC => urlC.mappedKey)
-      if(upstreamConfig && upstreamConfig instanceof Array) {
+      this.newUpstreams = []
+      if(this.appService.config.apiConfig && Object.keys(this.appService.config.apiConfig).length > 0) {
+        let allUpstreamMappedKeys = upstreamConfig && upstreamConfig instanceof Array ? upstreamConfig.map(urlC => urlC.upstream) : []
         const apiConfig = this.appService.config.apiConfig;
-        this.allIds = []
+        this.allUpstreams = []
         for(let key in apiConfig) {
-          this.allIds.push(apiConfig[key].new_url)
+          this.allUpstreams.push(apiConfig[key].new_url)
         }
-        this.allIds = Array.from(new Set(this.allIds));
-        this.allIds.forEach(id => {
+        this.allUpstreams = Array.from(new Set(this.allUpstreams));
+        this.allUpstreams.forEach(id => {
           if(id!=="" && allUpstreamMappedKeys.findIndex(u => u == id) < 0) {
-            this.newIds.push(id)
+            this.newUpstreams.push(id)
           }
         })
-        this.hasNewEntry = this.newIds.length > 0;
+        this.hasNewEntry = this.newUpstreams.length > 0;
       }
     }
 
     openServerConfigDialog(data: ServerConfig[], upstreamConfig : UpstreamConfig): void {
       const serverConfigData = new BehaviorSubject<ServerConfig[]>(data);
       const dialogData: ServerConfigData = {
-        title: upstreamConfig.mappedKey,
+        title: upstreamConfig.upstream,
         data: serverConfigData,
       }
       const dialogRef = this.dialog.open(UpstreamServerConfigComponent, {

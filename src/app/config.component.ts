@@ -27,7 +27,7 @@ export interface ConfigDialogData {
       private dialog: MatDialog, 
       private alertService: AlertService
     ) {
-        this.initialData = [...this.dialogData.data.value]
+        this.initialData = this.dialogData.data && this.dialogData.data instanceof Array ? [...this.dialogData.data.value] : []
         this.dialogData.data.subscribe(rules => this.dataSource.data = rules ?? []);
     }
 
