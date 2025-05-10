@@ -31,6 +31,8 @@ import { UrlConfigComponent } from './url-config.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AlertDialog } from './alert.component';
 import { DefaultConfigComponent } from './default-config.component';
+import { UpstreamServerConfigComponent } from './upstream-server-config.component';
+import { UpstreamConfigComponent } from './upstream-config.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { DefaultConfigComponent } from './default-config.component';
     ApiConfigComponent,
     UrlConfigComponent,
     AlertDialog,
-    DefaultConfigComponent
+    DefaultConfigComponent,
+    UpstreamServerConfigComponent,
+    UpstreamConfigComponent
   ],
   imports: [
     BrowserModule,

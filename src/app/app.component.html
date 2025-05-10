@@ -15,6 +15,12 @@
   <span class="mgL40"></span>
   <button mat-raised-button [color]="activeTab == 3 ? '' : 'primary'" (click)="handleTabSelection(3)">
     <span>
+      Upstream Config
+    </span>
+  </button>
+  <span class="mgL40"></span>
+  <button mat-raised-button [color]="activeTab == 4 ? '' : 'primary'" (click)="handleTabSelection(4)">
+    <span>
       Default Config
     </span>
   </button>
@@ -37,6 +43,9 @@
     <api-config></api-config>
   </ng-container>
   <ng-container *ngIf="activeTab == 3">
+    <upstream-config></upstream-config>
+  </ng-container>
+  <ng-container *ngIf="activeTab == 4">
     <default-config></default-config>
   </ng-container>
 </ng-container>

@@ -1,0 +1,72 @@
+<div mat-dialog-content class="mat-typography" style="height: 75vh; overflow: auto;">
+  <table mat-table [dataSource]="upstreamConfig" style="width: 100%;">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef style="padding-left: 80px;">Id</th>
+      <td mat-cell *matCellDef="let row">
+        <div style="display: flex;">
+          <div *ngIf="!serverConfigViewActivated" style="margin-bottom: 18px;">
+            <mat-checkbox [(ngModel)]="row.edit"></mat-checkbox>
+            <span>{{row.id}}</span>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="mappedKey">
+      <th mat-header-cell *matHeaderCellDef style="text-align: left;width: 80%;padding-left: 30px">MappedKey</th>
+      <td mat-cell *matCellDef="let row" style="text-align: left;width: 80%;">
+        <!-- <mat-form-field style="margin: 10px 0px;  width: 100%;" appearance="outline"
+            [matTooltip]="row.mappedKey"
+            matTooltipPosition="above">
+            <input  style="font-weight: 500;" matInput placeholder="MappedKey" [(ngModel)]="row.mappedKey" [disabled]="!row.edit">
+        </mat-form-field> -->
+        <mat-form-field style="margin: 10px 0px;  width: 100%;" [matTooltip]="row.mappedKey"
+          matTooltipPosition="above"  appearance="outline">
+          <mat-select 
+            [(ngModel)]="row.mappedKey" 
+            [disabled]="!row.edit"
+            >
+            <mat-option *ngFor="let id of allIds" [value]="id">
+              {{ id }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="servers">
+      <th mat-header-cell *matHeaderCellDef>Servers</th>
+      <td mat-cell *matCellDef="let row">
+        <div style="margin-bottom: 18px;">
+          <button mat-icon-button color="primary" (click)="openServerConfigDialog(row.servers, row)">
+            <mat-icon>settings</mat-icon>
+          </button>
+        </div>
+      </td>
+    </ng-container>
+
+    
+  
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row">
+        <div style="margin-bottom: 18px;"  *ngIf="!serverConfigViewActivated">
+          <button mat-icon-button color="warn" (click)="deleteRow(row)"
+            matTooltip="Delete"
+            matTooltipPosition="above">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['id', 'mappedKey', 'servers', 'actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['id', 'mappedKey', 'servers', 'actions'];"></tr>
+  </table>
+</div>
+<div style="display: flex; justify-content: flex-end; padding: 10px; margin: 10px;">
+  <div *ngIf="!serverConfigViewActivated">
+    <button mat-raised-button (click)="addConfig()" style="margin-left: 10px;" color="accent" [disabled]="!hasNewEntry">Add</button>
+    <button mat-raised-button (click)="save()" style="margin-left: 10px;" color="primary">Save</button>
+  </div>
+</div>
