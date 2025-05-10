@@ -39,9 +39,7 @@ export interface UpstreamConfig extends Editable {
   
     addConfig() {
       let currentData = this.upstreamConfig.value
-      if(!(currentData instanceof Array)) {
-        currentData = []
-      }
+      currentData = currentData instanceof Array ? currentData : []
       let configData = {
         id: "",
         upstream: this.newUpstreams[0],
@@ -74,7 +72,9 @@ export interface UpstreamConfig extends Editable {
         const apiConfig = this.appService.config.apiConfig;
         this.allUpstreams = []
         for(let key in apiConfig) {
-          this.allUpstreams.push(apiConfig[key].new_url)
+          if(apiConfig[key].upstream) {
+            this.allUpstreams.push(apiConfig[key].new_url)
+          }
         }
         this.allUpstreams = Array.from(new Set(this.allUpstreams));
         this.allUpstreams.forEach(id => {

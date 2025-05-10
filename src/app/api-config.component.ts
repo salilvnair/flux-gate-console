@@ -26,6 +26,7 @@ export interface DataRow extends Editable {
 export interface ApiRow extends Editable {
   old_url: string;
   new_url: string;
+  upstream: boolean;
   active: boolean;
   data: DataRow[];
   resolver_module: string;
@@ -89,6 +90,7 @@ export class ApiConfigComponent implements OnInit {
   deleteApiConfig(rowKey: string ) {
     this.alertService.alert("Are you sure you want to delete this entry?").subscribe((result) => {
       if (result) {
+        this.appService.cascadeApiConfigChildrenConfig(this.apiConfig[rowKey])
         delete this.apiConfig[rowKey];
         this.determineIfNewEntryInUrlConfigIsThere();
       }
@@ -100,6 +102,7 @@ export class ApiConfigComponent implements OnInit {
       new_url: 'https://new-url/service',
       old_url: 'https://old-url/service',
       active: true,
+      upstream: false,
       data: [
           
       ],

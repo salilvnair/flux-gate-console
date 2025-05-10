@@ -38,6 +38,7 @@ export class UrlConfigComponent implements OnInit {
   deleteRow(dataRow: UrlConfig) {
     this.alertService.alert("Are you sure you want to delete this entry?").subscribe((result) => {
       if (result) {
+        this.appService.cascadeUrlConfigChildrenConfig(dataRow)
         const currentData = this.urlConfig.value.filter(row => row !== dataRow);
         this.urlConfig.next(currentData);
         this.appService.config.urlConfig = [...currentData]

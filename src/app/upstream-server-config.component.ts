@@ -50,7 +50,8 @@ export interface ServerConfig  extends Editable {
 
 
     addServerConfig() {
-      const currentData = this.dialogData.data.value
+      let currentData = this.dialogData.data.value
+      currentData = currentData instanceof Array ? currentData : []
       currentData.push({ id: currentData?.length ? (currentData?.length + 1 ) +"": "1", address: '', edit: true });
       this.dialogData.data.next(currentData);
     }

@@ -75,7 +75,8 @@ export interface ConfigDialogData {
     }
 
     addRow() {
-        const currentData = this.dialogData.data.value
+        let currentData = this.dialogData.data.value
+        currentData = currentData instanceof Array ? currentData : []
         currentData.push({ id: currentData?.length ? (currentData?.length + 1 ) +"": "1", gate: false, rules: [], edit: true });
         this.dialogData.data.next(currentData);
         this.updateTableData(); 

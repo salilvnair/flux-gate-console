@@ -3,6 +3,8 @@ import { Injectable } from "@angular/core";
 import { Config } from "./config.model";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { BehaviorSubject } from "rxjs";
+import { UrlConfig } from "./url-config.component";
+import { ApiRow } from "./api-config.component";
 
 @Injectable({
     providedIn: 'root'
@@ -98,6 +100,21 @@ export class AppService {
         return this.config.urlConfig.find((config) => {
             return config.id === key;
         })
+    }
+
+
+    cascadeUrlConfigChildrenConfig(urlConfig: UrlConfig) {
+        this.cascadeApiConfigChildrenConfig(this.config.apiConfig[urlConfig.id])
+        if(this.config.apiConfig[urlConfig.id]) {
+            delete this.config.apiConfig[urlConfig.id]
+        }
+    }
+
+    cascadeApiConfigChildrenConfig(apiConfig: ApiRow) {
+        if(this.config.upstreamConfig && this.config.upstreamConfig instanceof Array && this.config.upstreamConfig.length > 0) {
+            const currentData = this.config.upstreamConfig.filter(r => r.upstream !== apiConfig.new_url);
+            this.config.upstreamConfig = currentData && currentData.length > 0 ? [...currentData] : []
+        }
     }
 
 
