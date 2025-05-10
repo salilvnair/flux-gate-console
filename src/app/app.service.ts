@@ -5,20 +5,33 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { BehaviorSubject } from "rxjs";
 import { UrlConfig } from "./url-config.component";
 import { ApiRow } from "./api-config.component";
+import { AppConfigService } from "./app-config.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AppService {
 
-    private configApiUrl = 'http://localhost:8080/config';
-    private availableResolversApiUrl = 'http://localhost:8080/availableResolvers';
-    private configModuleApiUrl = 'http://localhost:8080/configModule';
-    private operatorsApiUrl = 'http://localhost:8080/operators';
+    private configApiUrl:string = '';
+    private availableResolversApiUrl:string = '';
+    private configModuleApiUrl:string = '';
+    private operatorsApiUrl:string = '';
 
     private serverConfigView : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
-    constructor(private http: HttpClient, private _snackBar: MatSnackBar) {}
+    private apiBaseUrl: string = '';
+
+    constructor(private http: HttpClient, private _snackBar: MatSnackBar, private appConfig: AppConfigService) {
+        this.initEnvConfig()
+    }
+
+    initEnvConfig() {
+        this.apiBaseUrl = this.appConfig.envConfig().apiBaseUrl;
+        this.configApiUrl = `${this.apiBaseUrl}/config`;
+        this.availableResolversApiUrl = `${this.apiBaseUrl}/availableResolvers`;
+        this.configModuleApiUrl = `${this.apiBaseUrl}/configModule`;
+        this.operatorsApiUrl = `${this.apiBaseUrl}/operators`;
+    }
 
     public config:Config = <Config>{}
 
