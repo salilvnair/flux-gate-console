@@ -1,37 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import { ConfigComponentDialog, ConfigDialogData } from './config.component';
-import { AppService } from './app.service';
+import { ConfigComponentDialog } from './gate-config/config.component';
 import { BehaviorSubject } from 'rxjs';
-import { AlertService } from './alert.service';
+import { AlertService } from '../../../components/alert/alert.service';
+import { AppService } from '../../service/app.service';
+import { ApiRow, DataRow, ConfigDialogData } from 'src/app/api/app/model/flux-gate.response';
 
-export interface Editable {
-  edit?: boolean;
-}
 
-export interface Rule extends Editable {
-  id: string;
-  key: string;
-  value: string;
-  operator: string;
-  group?: Rule[]
-}
-
-export interface DataRow extends Editable {
-  id: string;
-  gate: boolean;
-  rules: Rule[];
-}
-
-export interface ApiRow extends Editable {
-  old_url: string;
-  new_url: string;
-  old_url_upstream: boolean;
-  new_url_upstream: boolean;
-  active: boolean;
-  data: DataRow[];
-  resolver_module: string;
-}
 
 @Component({
   selector: 'api-config',
@@ -99,6 +74,7 @@ export class ApiConfigComponent implements OnInit {
   }
 
   addApiConfig() {
+    this.apiConfig = this.appService.config.apiConfig || {};
     this.apiConfig[this.newIds[0]] = {
       new_url: '',
       old_url: '',
@@ -111,6 +87,7 @@ export class ApiConfigComponent implements OnInit {
       resolver_module: this.availableResolvers[0],
       edit: true
     }
+    this.appService.config.apiConfig = this.apiConfig;
     this.determineIfNewEntryInUrlConfigIsThere();
   }
 
@@ -125,7 +102,7 @@ export class ApiConfigComponent implements OnInit {
     if(urlConfig && urlConfig instanceof Array) {
       this.allIds = this.appService.config.urlConfig.map(urlC => urlC.id)
       this.allIds.forEach(id => {
-        if(id!=="" && !this.apiConfig[id]) {
+        if(id!=="" && !this.apiConfig?.[id]) {
           this.newIds.push(id)
         }
       })

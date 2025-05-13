@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AppService } from './app.service';
+import { AppService } from '../../service/app.service';
 
 
 @Component({
@@ -27,6 +27,7 @@ export class DefaultConfigComponent implements OnInit {
   }
 
   addDefaultConfig(key:string, value:string) {
+    this.defaultConfig = {}
     this.defaultConfig[key] = value
   }
 

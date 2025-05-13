@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AppService } from './app.service';
 import { BehaviorSubject } from 'rxjs';
-import { Editable } from './api-config.component';
-import { AlertService } from './alert.service';
+import { UrlConfig } from 'src/app/api/app/model/flux-gate.response';
+import { AlertService } from 'src/app/components/alert/alert.service';
+import { AppService } from '../../service/app.service';
 
 
-export interface UrlConfig extends Editable {
-  id: string;
-  subcontext: string;
-}
+
+
 
 @Component({
   selector: 'url-config',

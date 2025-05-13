@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/flux-gate-console",
+            "outputPath": "../flux_gate/console",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -98,5 +98,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

@@ -1,16 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
-import { AppService } from './app.service';
-import { BehaviorSubject } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
-import { Rule } from './api-config.component';
-import { AlertService } from './alert.service';
+import { BehaviorSubject } from 'rxjs';
+import { Rule, RuleDialogData } from 'src/app/api/app/model/flux-gate.response';
+import { AlertService } from 'src/app/components/alert/alert.service';
+import { AppService } from 'src/app/page/service/app.service';
 
-export interface RuleDialogData {
-    title: string;
-    data: BehaviorSubject<Rule[]>;
-    groupedRules: boolean;
-}
+
+
 
 @Component({
     selector: 'rule-config-component',

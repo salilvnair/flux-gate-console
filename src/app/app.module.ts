@@ -23,16 +23,21 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 // Import the Angular CDK Modules
 import { CdkTableModule } from '@angular/cdk/table';
 import { FormsModule } from '@angular/forms';
-import { ConfigComponentDialog } from './config.component';
-import { RuleComponentConfig } from './rule.component';
+import { ConfigComponentDialog } from './page/tabs/api-config/gate-config/config.component';
+import { RuleComponentConfig } from './page/tabs/api-config/gate-config/rule-config/rule.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ApiConfigComponent } from './api-config.component';
-import { UrlConfigComponent } from './url-config.component';
+import { ApiConfigComponent } from './page/tabs/api-config/api-config.component';
+import { UrlConfigComponent } from './page/tabs/url-config/url-config.component';
 import { HttpClientModule } from '@angular/common/http';
-import { AlertDialog } from './alert.component';
-import { DefaultConfigComponent } from './default-config.component';
-import { UpstreamServerConfigComponent } from './upstream-server-config.component';
-import { UpstreamConfigComponent } from './upstream-config.component';
+import { AlertDialog } from './components/alert/alert.component';
+import { DefaultConfigComponent } from './page/tabs/default-config/default-config.component';
+import { UpstreamServerConfigComponent } from './page/tabs/upstream-config/server-config/upstream-server-config.component';
+import { UpstreamConfigComponent } from './page/tabs/upstream-config/upstream-config.component';
+import { LoaderComponent } from './components/loader/loader.component';
+import { PageLocker } from './components/page-locker/page-locker.service';
+import { PageLockerComponent } from './components/page-locker/page-locker.component';
+import { NavigationStackComponent } from './components/navigation-stack/navigation-stack.component';
+
 
 @NgModule({
   declarations: [
@@ -44,7 +49,10 @@ import { UpstreamConfigComponent } from './upstream-config.component';
     AlertDialog,
     DefaultConfigComponent,
     UpstreamServerConfigComponent,
-    UpstreamConfigComponent
+    UpstreamConfigComponent,
+    LoaderComponent,
+    PageLockerComponent,
+    NavigationStackComponent
   ],
   imports: [
     BrowserModule,

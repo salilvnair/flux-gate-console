@@ -1,0 +1,13 @@
+.navback-text {
+    font-size: 1.5rem;
+    font-family: "font-regular", "Omnes-ATT-W02";
+    font-weight: bold;
+    margin-left: 0.2rem;
+    cursor: pointer;
+}
+
+.navback-icon {
+    margin: 0;
+    margin-top: 0.3rem;
+    cursor: pointer;
+}

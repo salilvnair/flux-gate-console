@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {  MatDialog} from '@angular/material/dialog';
-import { AppService } from './app.service';
+import { AppService } from '../../service/app.service';
 import { BehaviorSubject } from 'rxjs';
-import { AlertService } from './alert.service';
-import { ServerConfig, ServerConfigData, UpstreamServerConfigComponent } from './upstream-server-config.component';
-import { Editable } from './api-config.component';
+import { UpstreamConfig, ServerConfig, ServerConfigData } from 'src/app/api/app/model/flux-gate.response';
+import { AlertService } from 'src/app/components/alert/alert.service';
+import { UpstreamServerConfigComponent } from './server-config/upstream-server-config.component';
 
-export interface UpstreamConfig extends Editable {
-  id: string;
-  upstream: string;
-  servers: ServerConfig[]
-}
+
+
 
 @Component({
     selector: 'upstream-config',

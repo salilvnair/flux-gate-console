@@ -1,65 +1,49 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Config } from "./config.model";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { BehaviorSubject } from "rxjs";
-import { UrlConfig } from "./url-config.component";
-import { ApiRow } from "./api-config.component";
-import { AppConfigService } from "./app-config.service";
+import { Config, UrlConfig, ApiRow } from "src/app/api/app/model/flux-gate.response";
+import { AppApiService } from "src/app/api/app/service/app-api.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AppService {
 
-    private configApiUrl:string = '';
-    private availableResolversApiUrl:string = '';
-    private configModuleApiUrl:string = '';
-    private operatorsApiUrl:string = '';
-
     private serverConfigView : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
-    private apiBaseUrl: string = '';
 
-    constructor(private http: HttpClient, private _snackBar: MatSnackBar, private appConfig: AppConfigService) {
-        this.initEnvConfig()
-    }
-
-    initEnvConfig() {
-        this.apiBaseUrl = this.appConfig.envConfig().apiBaseUrl;
-        this.configApiUrl = `${this.apiBaseUrl}/config`;
-        this.availableResolversApiUrl = `${this.apiBaseUrl}/availableResolvers`;
-        this.configModuleApiUrl = `${this.apiBaseUrl}/configModule`;
-        this.operatorsApiUrl = `${this.apiBaseUrl}/operators`;
+    constructor(
+        private _snackBar: MatSnackBar, 
+        private appApiService: AppApiService
+    ) {
     }
 
     public config:Config = <Config>{}
-
     public availableResolvers: string[] = []
     public operators: string[] = []
 
     loadConfig() {
-        return this.http.get<Config>(this.configApiUrl);
+        return this.appApiService.loadConfig();
     }
     
 
     loadAvailableResolvers() {
-        return this.http.get<string[]>(this.availableResolversApiUrl);
+        return this.appApiService.loadAvailableResolvers();
     }
 
     loadOperators() {
-        return this.http.get<string[]>(this.operatorsApiUrl);
+        return this.appApiService.loadOperators();
     }
 
     saveConfig() {
         const configJsonString = this.prepareConfig();
-        return this.http.post<any>(this.configApiUrl, configJsonString).subscribe(response => {
+        this.appApiService.saveConfig(configJsonString).subscribe(response => {
             this.showMessage(response.message, "Ok")
         });
     }
 
     loadConfigModule() {
-        return this.http.get<Config>(this.configModuleApiUrl);
+        return this.appApiService.loadConfigModule();
     }
 
     serverConfigViewPublisher() {
