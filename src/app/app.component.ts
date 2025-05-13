@@ -1,47 +1,39 @@
-import { Component, OnInit } from '@angular/core';
-import { AppService } from './page/service/app.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { AuthService } from './api/auth/service/auth.service';
+import { NavigationRouter } from './components/navigation-stack/navigation.router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-  constructor(private appService: AppService){}
-  configLoaded = false;
-  activeTab = 1
+export class AppComponent implements  OnInit, OnDestroy {
+
+  authorized = false
+  forbiddenAccess = false
+  subscription: Subscription;
+
+  constructor(
+    private router: Router, 
+    private navigationRouter: NavigationRouter,
+    private authService: AuthService
+  ){
+    this.subscription = this.navigationRouter.configureRedirectingOnSameRoute(this.router)
+  }
 
   ngOnInit(): void {
-    this.loadConfig()
-  }
-
-  handleTabSelection(tab: number) {
-   this.activeTab = tab;
-  }
-
-  handleConfigModule(event:any) {
-    this.configLoaded = false
-    this.appService.publishServerConfigView(event.checked)
-    if(event.checked) {
-      this.loadConfigModule()
-    }
-    else {
-      this.loadConfig()
-    }
-  }
-
-  
-  loadConfigModule() {
-    this.appService.loadConfigModule().subscribe(config => {
-      this.appService.config = config;
-      this.configLoaded = true;
-    })
-  }
-
-  loadConfig() {
-    this.appService.loadConfig().subscribe(config => {
-      this.appService.initConfig(config).subscribe((config) => {
-        this.configLoaded = true;
-      })
+    this.authService.bootstrap().subscribe(authorized => {
+      this.authorized = authorized;
+      if(!this.authorized && this.authService.currentUserTokenState && Object.keys(this.authService.currentUserTokenState).length > 0) {
+        this.forbiddenAccess = !this.authService.currentUserTokenState?.validToken
+      }
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }

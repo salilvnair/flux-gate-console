@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Subject} from "rxjs";
+import { Subject} from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { AppConfigService } from "src/app/page/service/app-config.service";
 import { Config } from "../model/flux-gate.response";
@@ -32,6 +32,11 @@ export class AppApiService {
 
     public availableResolvers: string[] = []
     public operators: string[] = []
+
+
+    extractApiBaseUrl() {
+        return this.apiBaseUrl;
+    }
 
     loadConfig() {
         return this.http.get<Config>(this.configApiUrl);

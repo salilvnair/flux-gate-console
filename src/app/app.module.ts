@@ -37,11 +37,14 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { PageLocker } from './components/page-locker/page-locker.service';
 import { PageLockerComponent } from './components/page-locker/page-locker.component';
 import { NavigationStackComponent } from './components/navigation-stack/navigation-stack.component';
+import { HomeComponent } from './page/home/home.component';
+import { AppRoutingModule } from './routes/app.routes';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
     ConfigComponentDialog,
     RuleComponentConfig,
     ApiConfigComponent,
@@ -74,7 +77,8 @@ import { NavigationStackComponent } from './components/navigation-stack/navigati
     MatCardModule,
     CdkTableModule, 
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [
   ],

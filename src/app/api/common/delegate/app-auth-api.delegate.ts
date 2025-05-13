@@ -1,3 +1,4 @@
+import { AppApiService } from 'src/app/api/app/service/app-api.service';
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
@@ -15,7 +16,8 @@ export class AppAuthApiDelegate implements ApiDelegate {
   apiLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private appApiService: AppApiService
     ) {}
   invoke(request: ApiRequest, requestParams: { [p: string]: any }, ...args: any[]): Observable<any> {
     var headers: any = { 'Content-Type': 'application/json'};
@@ -26,10 +28,10 @@ export class AppAuthApiDelegate implements ApiDelegate {
             headers[headersKey] = apiConfigHeaders[headersKey];
         }
     }
-    let apiUrl= config.subContext;
+    let apiUrl= this.appApiService.extractApiBaseUrl() + config.subContext;
     let apiName = MapUtil.init(requestParams).get(ApiConstant.API_NAME);
     if(apiName === ApiName.APP_AUTH_REDIRECT) {
-        return this.http.get(config.subContext, { responseType: 'text' });
+        return this.http.get(apiUrl, { responseType: 'text' });
 
     }
     else {

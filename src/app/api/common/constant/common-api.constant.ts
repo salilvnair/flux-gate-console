@@ -4,14 +4,12 @@ import { MapUtil } from "../../../util/helper/map.util";
 
 export enum ApiName {
   APP_AUTH_REDIRECT = "APP_AUTH_REDIRECT",
-  APP_AUTHORIZE = "APP_AUTHORIZE",
-  GENERATE_FLEXWARE_MIGRATION_PAGES = "GENERATE_FLEXWARE_MIGRATION_PAGES",
+  APP_AUTHORIZE = "APP_AUTHORIZE" 
 }
 
 export enum ApiSubContext {
-  APP_AUTH_REDIRECT = "/relink-backend/auth/redirect",
-  APP_AUTHORIZE = "/relink-backend/auth/authorize",
-  GENERATE = "/relink-backend/app/api/v1/generate",
+  APP_AUTH_REDIRECT = "/auth/redirect",
+  APP_AUTHORIZE = "/auth/authorize"
 }
 
 

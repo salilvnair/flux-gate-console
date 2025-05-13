@@ -75,13 +75,13 @@ export class AuthService {
     }
 
     const url = new URL(window.location.href)
-    console.log("containsOIDCQueryParams", this.containsOIDCQueryParams(url.searchParams))
-    if(!this.containsUserTokenState() && !this.containsOIDCQueryParams(url.searchParams)) {
+    console.log("containsAuthQueryParams", this.containsAuthQueryParams(url.searchParams))
+    if(!this.containsUserTokenState() && !this.containsAuthQueryParams(url.searchParams)) {
         console.log("redirecting....")
         this.redirect()
     }
 
-    else if (!this.containsUserTokenState() && this.containsOIDCQueryParams(url.searchParams)) {
+    else if (!this.containsUserTokenState() && this.containsAuthQueryParams(url.searchParams)) {
         console.log("authorizing....")
         let params = new HttpParams({ fromString: url.searchParams.toString() });
         this.authorize(params)
@@ -89,7 +89,7 @@ export class AuthService {
     return this.authorized.asObservable();
   }
 
-  containsOIDCQueryParams(urlSearchParams: URLSearchParams) {
+  containsAuthQueryParams(urlSearchParams: URLSearchParams) {
     return urlSearchParams.has("state") && urlSearchParams.has("code")
   }
 
@@ -177,7 +177,7 @@ export class AuthService {
         sessionStorage.setItem("REDIRECT_COUNT", "0")
       }
       sessionStorage.setItem("REDIRECTED_FROM", this.router.url)
-      window.location.href = apiResponse.response ? apiResponse.response : "/home";
+      window.location.href = "http://localhost:8888/login?redirectUri=http://localhost:4200&state=FLUX_GATE_STATE";
     })
   }
 
