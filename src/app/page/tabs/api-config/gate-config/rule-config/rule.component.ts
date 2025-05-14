@@ -44,7 +44,8 @@ import { AppService } from 'src/app/page/service/app.service';
 
 
     addRule() {
-      const currentData = this.dialogData.data.value
+      let currentData = this.dialogData.data.value
+      currentData = currentData instanceof Array ? currentData : []
       currentData.push({ id: currentData?.length ? (currentData?.length + 1 ) +"": "1", key: '', value: '', operator: 'AND', edit: true });
       this.dialogData.data.next(currentData);
     }
