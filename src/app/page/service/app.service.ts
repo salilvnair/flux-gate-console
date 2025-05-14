@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { BehaviorSubject } from "rxjs";
-import { Config, UrlConfig, ApiRow } from "src/app/api/app/model/flux-gate.response";
+import { Config, UrlConfig, ApiRow, ConfigSaveRequest } from "src/app/api/app/model/flux-gate.response";
 import { AppApiService } from "src/app/api/app/service/app-api.service";
+import { AuthService } from "src/app/api/auth/service/auth.service";
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +15,8 @@ export class AppService {
 
     constructor(
         private _snackBar: MatSnackBar, 
-        private appApiService: AppApiService
+        private appApiService: AppApiService,
+        private authService: AuthService
     ) {
     }
 
@@ -37,7 +39,10 @@ export class AppService {
 
     saveConfig() {
         const configJsonString = this.prepareConfig();
-        this.appApiService.saveConfig(configJsonString).subscribe(response => {
+        let configSaveRequest: ConfigSaveRequest = new ConfigSaveRequest();
+        configSaveRequest.config = JSON.parse(configJsonString);
+        configSaveRequest.userName = this.authService.userId() ?? '';
+        this.appApiService.saveConfig(configSaveRequest).subscribe(response => {
             this.showMessage(response.message, "Ok")
         });
     }

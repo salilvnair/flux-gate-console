@@ -2,10 +2,11 @@ import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { BehaviorSubject } from 'rxjs';
-import { DataRow, ConfigDialogData, Rule, RuleDialogData, ApiRow } from 'src/app/api/app/model/flux-gate.response';
+import { DataRow, Rule, ApiRow } from 'src/app/api/app/model/flux-gate.response';
 import { AlertService } from 'src/app/components/alert/alert.service';
 import { AppService } from 'src/app/page/service/app.service';
 import { RuleComponentConfig } from './rule-config/rule.component';
+import { ConfigDialogData, RuleDialogData } from 'src/app/page/model/flux-gate-dialog.data';
 
 
 
@@ -36,7 +37,7 @@ import { RuleComponentConfig } from './rule-config/rule.component';
     public dataSource = new MatTableDataSource<DataRow>();
   
     onCancelClick(): void {
-        this.dialogRef.close(this.initialData);
+        this.dialogRef.close();
     }
 
     toggleRuleExpand(dataRow: DataRow) {
@@ -73,7 +74,7 @@ import { RuleComponentConfig } from './rule-config/rule.component';
     addRow() {
         let currentData = this.dialogData.data.value
         currentData = currentData instanceof Array ? currentData : []
-        currentData.push({ id: currentData?.length ? (currentData?.length + 1 ) +"": "1", gate: false, rules: [], edit: true });
+        currentData.push({ id: currentData?.length ? (currentData?.length + 1 ) +"": "1", name: "", gate: false, rules: [], edit: true });
         this.dialogData.data.next(currentData);
         this.updateTableData(); 
     }
@@ -86,6 +87,14 @@ import { RuleComponentConfig } from './rule-config/rule.component';
                 this.updateTableData(); 
             }
         });
+    }
+
+    cloneRow(dataRow: DataRow) {
+        let currentData = this.dialogData.data.value
+        currentData = currentData instanceof Array ? currentData : []
+        currentData.push({ id: currentData?.length ? (currentData?.length + 1 ) +"": "1", name: dataRow.name, gate: dataRow.gate, rules: dataRow.rules, edit: true });
+        this.dialogData.data.next(currentData);
+        this.updateTableData(); 
     }
 
     save() {

@@ -177,7 +177,9 @@ export class AuthService {
         sessionStorage.setItem("REDIRECT_COUNT", "0")
       }
       sessionStorage.setItem("REDIRECTED_FROM", this.router.url)
-      window.location.href = "http://localhost:8888/login?redirectUri=http://localhost:4200&state=FLUX_GATE_STATE";
+      if(apiResponse.response) { 
+        window.location.href = apiResponse.response;
+      }
     })
   }
 

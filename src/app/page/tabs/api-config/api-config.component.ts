@@ -1,10 +1,11 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ConfigComponentDialog } from './gate-config/config.component';
 import { BehaviorSubject } from 'rxjs';
 import { AlertService } from '../../../components/alert/alert.service';
 import { AppService } from '../../service/app.service';
-import { ApiRow, DataRow, ConfigDialogData } from 'src/app/api/app/model/flux-gate.response';
+import { ApiRow, DataRow } from 'src/app/api/app/model/flux-gate.response';
+import { ConfigDialogData } from '../../model/flux-gate-dialog.data';
 
 
 

@@ -5,3 +5,16 @@
 .mgL40 {
     margin-left: 40px;
 }
+
+.user-info {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-weight: 500;
+    font-size: 16px;
+    margin-right: 6px;
+}
+
+.user-info .mat-icon {
+    margin-right: 6px;
+}

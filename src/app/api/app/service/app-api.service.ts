@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Subject} from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { AppConfigService } from "src/app/page/service/app-config.service";
-import { Config } from "../model/flux-gate.response";
+import { Config, ConfigSaveRequest } from "../model/flux-gate.response";
 
 @Injectable({
   'providedIn' : 'root'
@@ -51,9 +51,9 @@ export class AppApiService {
         return this.http.get<string[]>(this.operatorsApiUrl);
     }
 
-    saveConfig(configJsonString: string) {
+    saveConfig(configSaveRequest: ConfigSaveRequest) {
         let saved: Subject<any> = new Subject<any>();
-        this.http.post<any>(this.configApiUrl, configJsonString).subscribe(response => {
+        this.http.post<any>(this.configApiUrl, configSaveRequest).subscribe(response => {
           saved.next(response);
         });
         return saved.asObservable();

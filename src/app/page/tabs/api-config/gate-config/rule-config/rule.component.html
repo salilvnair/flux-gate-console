@@ -64,7 +64,7 @@
           <input  style="font-weight: 500;" matInput placeholder="Operator" [(ngModel)]="row.operator" [disabled]="!row.edit">
         </mat-form-field> -->
         <mat-form-field appearance="outline" >
-          <mat-select [(ngModel)]="row.operator ?? operators[0]" [disabled]="!row.edit">
+          <mat-select [(ngModel)]="row.operator" [disabled]="!row.edit">
             <mat-option *ngFor="let operator of operators" [value]="operator">
               {{ operator }}
             </mat-option>

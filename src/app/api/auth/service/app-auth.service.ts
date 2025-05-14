@@ -17,17 +17,17 @@ export class AppAuthService {
 
   constructor(
     private apiFacade: ApiFacade,
-    private ensAuthHandler: AppAuthApiHandler
+    private authHandler: AppAuthApiHandler
     ) {
   }
 
   generateAuthRedirectURL(requestParams: { [key:string]:any }, ...args: any[]) {
     requestParams = MapUtil.init(requestParams).add(ApiConstant.API_NAME, ApiName.APP_AUTH_REDIRECT).extractMap();
-    return this.apiFacade.initiate<string>(this.ensAuthHandler, requestParams, args);
+    return this.apiFacade.initiate<string>(this.authHandler, requestParams, args);
   }
 
   authorizeUser(requestParams: { [key:string]:any }, ...args: any[]) {
     requestParams = MapUtil.init(requestParams).add(ApiConstant.API_NAME, ApiName.APP_AUTHORIZE).extractMap();
-    return this.apiFacade.initiate<UserTokenState>(this.ensAuthHandler, requestParams, args);
+    return this.apiFacade.initiate<UserTokenState>(this.authHandler, requestParams, args);
   }
 }

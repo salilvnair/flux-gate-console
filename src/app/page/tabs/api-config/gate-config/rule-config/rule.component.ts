@@ -2,8 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { BehaviorSubject } from 'rxjs';
-import { Rule, RuleDialogData } from 'src/app/api/app/model/flux-gate.response';
+import { Rule } from 'src/app/api/app/model/flux-gate.response';
 import { AlertService } from 'src/app/components/alert/alert.service';
+import { RuleDialogData } from 'src/app/page/model/flux-gate-dialog.data';
 import { AppService } from 'src/app/page/service/app.service';
 
 
@@ -38,7 +39,7 @@ import { AppService } from 'src/app/page/service/app.service';
     public dataSource = new MatTableDataSource<Rule>();
   
     onCancelClick(): void {
-      this.dialogRef.close(this.initialData);
+      this.dialogRef.close();
     }
 
 

@@ -37,7 +37,7 @@ import { AppService } from 'src/app/page/service/app.service';
   
 
     onCancelClick(): void {
-      this.dialogRef.close(this.initialData);
+      this.dialogRef.close();
     }
 
 

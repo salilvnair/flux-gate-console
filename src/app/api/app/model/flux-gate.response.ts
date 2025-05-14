@@ -4,18 +4,16 @@ export interface Editable {
   edit?: boolean;
 }
 
-export interface Rule extends Editable {
-  id: string;
-  key: string;
-  value: string;
-  operator: string;
-  group?: Rule[]
+export interface Config {
+  urlConfig: UrlConfig[];
+  apiConfig: { [key: string]: ApiRow }
+  upstreamConfig: UpstreamConfig[];
+  defaultConfig: { [key: string]: string }
 }
 
-export interface DataRow extends Editable {
+export interface UrlConfig extends Editable {
   id: string;
-  gate: boolean;
-  rules: Rule[];
+  subcontext: string;
 }
 
 export interface ApiRow extends Editable {
@@ -28,16 +26,19 @@ export interface ApiRow extends Editable {
   resolver_module: string;
 }
 
-export interface ConfigDialogData {
-    configId: string;
-    title: string;
-    data: BehaviorSubject<DataRow[]>;
+export interface DataRow extends Editable {
+  id: string;
+  gate: boolean;
+  name: string;
+  rules: Rule[];
 }
 
-export interface RuleDialogData {
-    title: string;
-    data: BehaviorSubject<Rule[]>;
-    groupedRules: boolean;
+export interface Rule extends Editable {
+  id: string;
+  key: string;
+  value: string;
+  operator: string;
+  group?: Rule[]
 }
 
 export interface UpstreamConfig extends Editable {
@@ -55,14 +56,8 @@ export interface ServerConfig  extends Editable {
   id: string;
   address: string;
 }
-export interface UrlConfig extends Editable {
-  id: string;
-  subcontext: string;
-}
 
-export interface Config {
-    urlConfig: UrlConfig[];
-    defaultConfig: { [key: string]: string }
-    apiConfig: { [key: string]: ApiRow }
-    upstreamConfig: UpstreamConfig[];
+export class ConfigSaveRequest {
+  config: any = '';
+  userName: string  = '';
 }
